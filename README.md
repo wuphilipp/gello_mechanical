@@ -4,12 +4,11 @@ This is the central repo that holds the mechanical parts for GELLO. See the webs
 ## Organization
 
 Currently we support 3 robot types: The Franka, UR5, xArm7.
-Each robot has its own folder, with its own robot specific parts. Additionally there are some commonly shared parts.
+Each robot has its own folder, with its own robot specific parts. The gripper files are in its own folder, which is shared across robots.
 The stls can be printed directly. See the assembly instructions for more detailed instructions.
  * `franka`: contains Franka specific parts
  * `ur5`: contains UR5 specific parts
  * `xarm7`: contains xArm7 specific parts
- * `base`: contains the base plate, which is shared across all robots
  * `gripper`: contains the parts for the gripper, which is also shared across robots
 
 ## Assembly Instructions
