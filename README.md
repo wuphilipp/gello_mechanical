@@ -1,5 +1,6 @@
 # GELLO Mechanical
 This is the central repo that holds the mechanical parts for GELLO. See the website for the paper and other resources for GELLO https://wuphilipp.github.io/gello_site/
+If you have already built your GELLO, please see https://github.com/wuphilipp/gello_software for software setup and usage.
 
 ## Organization
 
