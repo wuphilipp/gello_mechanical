@@ -24,7 +24,7 @@ These are included in XL330 servo and FPX330 series:
 - [L3.stl](./3dprint_parts/L3.stl)
 - [L4.stl](./3dprint_parts/L4.stl)
 
-You can also use base.stl from xarm7 instead of base.stl in this lite6 folder: [base.stl](../xarm7/base.stl)
+You can also use base.stl from xarm7 instead of base.stl in this lite6 folder: [base.stl](../xarm7/base.STL)
 
 If you want to keep the height of this leader sytem same with Actual Lite 6, prepare these:
 - [baseRoll.stl](./3dprint_parts/baseRoll.stl)
