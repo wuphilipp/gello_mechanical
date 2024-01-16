@@ -3,7 +3,6 @@ This is the central repo that holds the mechanical parts for GELLO. See the webs
 If you have already built your GELLO, please see https://github.com/wuphilipp/gello_software for software setup and usage.
 
 ## Organization
-
 Currently we support 4 robot types. The 3 from the original paper:
  * The Franka (from Franka Robotics)
  * UR5 (from Universal Robotics)
@@ -26,8 +25,10 @@ Instructions for assembly can be found here: [Assembly Instructions](https://doc
 Currently we only provide access to the raw STL files. If you would like access to the source files (Solidworks), please contact me.
 If you run into any issues during assembly, please open a github issue.
 
-# Citation
+## Contribution
+If you have made any improvements to GELLO or made designs for a new robot, please contribute by making a pull request!
 
+# Citation
 ```
 @misc{wu2023gello,
     title={GELLO: A General, Low-Cost, and Intuitive Teleoperation Framework for Robot Manipulators},
