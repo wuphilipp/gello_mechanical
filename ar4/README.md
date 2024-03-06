@@ -1,7 +1,8 @@
 # Annin AR4
-<img src="images/gello-ar4.png">
+<img src="images/gello-ar4-scad.png">
+<img src="images/gello-ar4-real.jpg">
 
-GELLO parts for the AR4 series of robotic arms by  [Annin Robotics](https://www.anninrobotics.com/).
+GELLO parts for the AR4 series of robotic arms by [Annin Robotics](https://www.anninrobotics.com/).
 
 ## BOM
 

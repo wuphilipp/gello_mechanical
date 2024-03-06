@@ -9,10 +9,11 @@ Currently we support 4 robot types. The 3 from the original paper:
  * xArm7 (from uFactory)
 And 2 from community contributions:
  * Lite6 (from uFactory). The lite6 design is contributed from [EL2031watson](https://twitter.com/EL2031watson). See the instructions [here](./lite6/README.md).
- * AR4 (from [Annin Robotics](https://www.anninrobotics.com/)) contributed by [@adob](https://github.com/adob)
+ * AR4 (from [Annin Robotics](https://www.anninrobotics.com/)) contributed by [@adob](https://github.com/adob). See instructions [here](./ar4/README.md).
 
 Each robot has its own folder, with its own robot specific parts. The gripper files are in its own folder, which is shared across robots.
 The stls can be printed directly. See the assembly instructions for more detailed instructions.
+
  * `franka`: contains Franka specific parts
  * `ur5`: contains UR5 specific parts
  * `xarm7`: contains xArm7 specific parts
