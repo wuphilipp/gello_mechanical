@@ -8,6 +8,7 @@ Currently we support 6 robot types. The 3 from the original paper:
  * The Franka (from Franka Robotics)
  * UR5 (from Universal Robotics)
  * xArm7 (from uFactory)
+
 And 3 from community contributions:
  * YAM (from I2RT). Contributed by [Jeffrey Liu](https://github.com/jyliu24) and [Hardik Maheshwari](https://github.com/hmahesh007).
  * Lite6 (from uFactory). The lite6 design is contributed from [EL2031watson](https://twitter.com/EL2031watson). See the instructions [here](./lite6/README.md).
