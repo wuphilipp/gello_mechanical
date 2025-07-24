@@ -1,6 +1,7 @@
 # GELLO Mechanical
-This is the central repo that holds the mechanical parts for GELLO. See the website for the paper and other resources for GELLO https://wuphilipp.github.io/gello_site/
-If you have already built your GELLO, please see https://github.com/wuphilipp/gello_software for software setup and usage.
+This is the central repo that holds the mechanical parts for GELLO. See the [website](https://wuphilipp.github.io/gello_site/) for the paper and other resources for GELLO 
+
+If you have already built your GELLO, please see the [gello_software repo](https://github.com/wuphilipp/gello_software) for software setup and usage.
 
 ## Organization
 Currently we support 4 robot types. The 3 from the original paper:
