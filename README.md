@@ -21,6 +21,7 @@ The stls can be printed directly. See the assembly instructions for more detaile
  * `franka`: contains Franka specific parts
  * `ur5`: contains UR5 specific parts
  * `xarm7`: contains xArm7 specific parts
+ * `yam`: contains YAM (Yet Another Manipulator) specific parts
  * `lite6`: contains Lite6 specific parts and instructions.
  * `ar4`: contains AR4 specific parts
  * `gripper`: contains the parts for the gripper, which is also shared across robots
