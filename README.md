@@ -30,7 +30,7 @@ The stls can be printed directly. See the assembly instructions for more detaile
 Instructions for assembly can be found here: [Assembly Instructions](https://docs.google.com/document/d/1pzV8LDIGZh6zq8z-ZyKjUZ1ISkdCQctfu_05-ZY95eg/edit?usp=sharing)
 
 ## Notes
-Currently we only provide access to the raw STL files. If you would like access to the source files (Solidworks), please contact me.
+If you would like access to the CAD files, please contact me at the email address on my Github profile.
 If you run into any issues during assembly, please open a github issue.
 
 ## Contribution
