@@ -26,8 +26,8 @@ The stls can be printed directly. See the assembly instructions for more detaile
  * `ar4`: contains AR4 specific parts
  * `gripper`: contains the parts for the gripper, which is also shared across robots
 
-## Assembly Instructions
-Instructions for assembly can be found here: [Assembly Instructions](https://docs.google.com/document/d/1pzV8LDIGZh6zq8z-ZyKjUZ1ISkdCQctfu_05-ZY95eg/edit?usp=sharing)
+## Bill of Materials (BOM) and Assembly Instructions
+The BOM and instructions for assembly can be found here: [BOM and Assembly Instructions](https://docs.google.com/document/d/1bdvqPiW4jI5PJm6aIFizhcTuyVJZGEIgqbJe92IoyaM/edit?usp=sharing)
 
 ## Notes
 If you would like access to the CAD files, please contact me at `phil80301[at]berkeley[dot]edu` .
