@@ -4,8 +4,8 @@ This is the central repo that holds the mechanical parts for GELLO. See the [web
 If you have already built your GELLO, please see the [gello_software repo](https://github.com/wuphilipp/gello_software) for software setup and usage.
 
 ## Organization
-Currently we support 6 robot types. The 3 from the original paper:
- * The Franka (from Franka Robotics)
+Currently we support 7 robot types. The 3 from the original paper:
+ * Franka FER (from Franka Robotics)
  * UR5 (from Universal Robotics)
  * xArm7 (from uFactory)
 
@@ -13,12 +13,14 @@ And 3 from community contributions:
  * YAM (from I2RT). Contributed by [Jeffrey Liu](https://github.com/jyliu24) and [Hardik Maheshwari](https://github.com/hmahesh007).
  * Lite6 (from uFactory). The lite6 design is contributed from [EL2031watson](https://twitter.com/EL2031watson). See the instructions [here](./lite6/README.md).
  * AR4 (from [Annin Robotics](https://www.anninrobotics.com/)) contributed by [@adob](https://github.com/adob). See instructions [here](./ar4/README.md).
+ * FR3 and FR3 Duo (from and contributed by [Franka Robotics](https://franka.de)). See instructions [here](./franka_fr3/README.md)
 
 
 Each robot has its own folder, with its own robot specific parts. The gripper files are in its own folder, which is shared across robots.
 The stls can be printed directly. See the assembly instructions for more detailed instructions.
 
- * `franka`: contains Franka specific parts
+ * `franka_fer`: contains Franka FER specific parts
+ * `franka_fr3`: contains Franka FR3 and FR3 Duo specific parts
  * `ur5`: contains UR5 specific parts
  * `xarm7`: contains xArm7 specific parts
  * `yam`: contains YAM (Yet Another Manipulator) specific parts
