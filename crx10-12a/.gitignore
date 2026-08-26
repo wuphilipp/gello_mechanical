@@ -1,0 +1,4 @@
+# FANUC vendor CAD for the CRX-10/12A. Used to derive the link lengths
+# documented in README.md; not ours to redistribute.
+*.dxf
+*.x_t
