@@ -4,16 +4,17 @@ This is the central repo that holds the mechanical parts for GELLO. See the [web
 If you have already built your GELLO, please see the [gello_software repo](https://github.com/wuphilipp/gello_software) for software setup and usage.
 
 ## Organization
-Currently we support 7 robot types. The 3 from the original paper:
+Currently we support 8 robot types. The 3 from the original paper:
  * Franka FER (from Franka Robotics)
  * UR5 (from Universal Robotics)
  * xArm7 (from uFactory)
 
-And 3 from community contributions:
+And 5 from community contributions:
  * YAM (from I2RT). Contributed by [Jeffrey Liu](https://github.com/jyliu24) and [Hardik Maheshwari](https://github.com/hmahesh007).
  * Lite6 (from uFactory). The lite6 design is contributed from [EL2031watson](https://twitter.com/EL2031watson). See the instructions [here](./lite6/README.md).
  * AR4 (from [Annin Robotics](https://www.anninrobotics.com/)) contributed by [@adob](https://github.com/adob). See instructions [here](./ar4/README.md).
  * FR3 and FR3 Duo (from and contributed by [Franka Robotics](https://franka.de)). See instructions [here](./franka_fr3/README.md)
+ * CRX-10/12A (from [FANUC](https://www.fanuc.co.jp/)). Derived from the UR5 design. See instructions [here](./crx10-12a/README.md).
 
 
 Each robot has its own folder, with its own robot specific parts. The gripper files are in its own folder, which is shared across robots.
@@ -26,6 +27,7 @@ The stls can be printed directly. See the assembly instructions for more detaile
  * `yam`: contains YAM (Yet Another Manipulator) specific parts
  * `lite6`: contains Lite6 specific parts and instructions.
  * `ar4`: contains AR4 specific parts
+ * `crx10-12a`: contains FANUC CRX-10/12A specific parts and instructions
  * `gripper`: contains the parts for the gripper, which is also shared across robots
 
 ## Bill of Materials (BOM) and Assembly Instructions
