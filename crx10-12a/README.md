@@ -13,43 +13,62 @@ link-length coefficient; everything else follows from it.
 
 Link lengths are the real CRX-10/12A link lengths multiplied by **α = 0.5**.
 Everything that touches hardware — DYNAMIXEL body, horn, screw pattern, plate
-thickness, link width — stays 1:1. This is the same convention the UR5 GELLO
-uses (its links are exactly 0.5x the real UR5) and the same one
-[`../ar4/gello-ar4.scad`](../ar4/gello-ar4.scad) expresses as `scale_factor`.
+thickness, link width, the support ring — stays 1:1. This is the same
+convention the UR5 GELLO uses (its links are exactly 0.5x the real UR5) and the
+same one [`../ar4/gello-ar4.scad`](../ar4/gello-ar4.scad) calls `scale_factor`.
 
-| | real CRX-10/12A | α = 0.5 |
-|---|---|---|
-| base mounting face → J2 axis | 245 mm | **122.5 mm** |
-| J2 → J3 (upper arm) | 540 mm | **270 mm** |
-| J3 → J5 wrist centre (forearm) | 540 mm | **270 mm** |
-| J5 → J6 faceplate | 160 mm | **80 mm** |
-| J1 ↔ J2 offset | 0 | 0 |
+The numbers are FANUC's own, the `l_*` xacro properties of
+[`crx10ia_urdf_macro.xacro`](https://github.com/FANUC-CORPORATION/fanuc_description/blob/main/fanuc_crx_description/urdf/crx10ia_urdf_macro.xacro):
 
-Dimensions were read off the FANUC CRX-10/12A general-arrangement drawing
-(`2D_CRX10-12A_v01.dxf`, 1:1, mm). The motion-envelope circles Ø2498 and Ø2160
-are concentric on the J2 axis, and Ø2160 / 2 = 1080 = 540 + 540 confirms both
-arm segments and a zero J1↔J2 offset. The vendor CAD is not redistributed here.
+| | | real CRX-10/12A | α = 0.5 |
+|---|---|---|---|
+| `l_base` | base mounting face → J1 = J2 axis | 245 mm | **122.5 mm** |
+| `l_1` | J1 → J2 offset | 0 | **0** |
+| `l_2` | J2 → J3, the upper arm | 540 mm | **270 mm** |
+| `l_3` | J3 → J4 | **0** | **0** |
+| `l_4` | J4 → J5, the forearm | 540 mm | **270 mm** |
+| `l_5` | J5 → J6, along the J5 axis | 150 mm | **75 mm** |
+| `l_6` | J6 → flange | 160 mm | **80 mm** |
 
-Resulting leader-arm reach is 624.5 mm from the J2 axis, about 40 % longer than
-the UR5 GELLO. If that is too large for your workspace, lower `ALPHA` and
-regenerate.
+Two of these are easy to get wrong and both are load-bearing for the design:
+
+* **`l_3` is zero.** J4 is coincident with J3, so the 540 mm forearm is the
+  *J4* link. The whole forearm rolls, and the roll motor sits at the elbow.
+  That makes `L3` a short bracket and `L4` the long link, as on the real arm.
+* **`l_5` is a 150 mm offset along the J5 axis**, which makes the CRX wrist
+  non-spherical. It is invisible in a side-view drawing because it points out
+  of the page, and it is what turns 1080 + 160 into the published 1249 mm
+  reach: √(1240² + 150²) = 1249. `L5` carries the J6 axis out to that offset.
+
+The vendor drawing `2D_CRX10-12A_v01.dxf` agrees: its concentric envelope
+circles Ø2498 and Ø2160 are centred on the J2 axis, giving 540 + 540 to the
+wrist, and the dimension chain gives 245 and 160. The vendor CAD is not
+redistributed here.
+
+Leader-arm reach is √(620² + 75²) = 624.5 mm from the J1 axis, exactly half of
+1249, and about 40 % more than the UR5 GELLO. If that is too large for your
+workspace, lower `ALPHA` and regenerate.
 
 ## Joint topology — read this before comparing with the UR5
 
-The CRX-10/12A is a conventional 6R arm: **J4 is a roll about the forearm.**
-The UR5 has a pitch there instead. A GELLO only works if it is joint-for-joint
-identical to the follower, so L3, L4 and L5 are new geometry rather than
-rescaled UR5 wrist parts. Only `base.STL`, the DYNAMIXEL interface and the
-overall part style come from the UR5.
+The CRX-10/12A is a conventional 6R arm: **J4 is a roll about the forearm**,
+and the wrist is **not spherical**. The UR5 has a pitch at J4 and no wrist
+offset. A GELLO only works if it is joint-for-joint identical to the follower,
+so L3, L4 and L5 are new geometry rather than rescaled UR5 wrist parts. Only
+`base.STL`, the DYNAMIXEL interface and the overall part style come from the
+UR5.
 
-| joint | axis (home pose) | motor carried by |
-|---|---|---|
-| J1 | vertical | `base` |
-| J2 | pitch | `L1` |
-| J3 | pitch | `L2` |
-| J4 | **roll along the forearm** | `L3` |
-| J5 | pitch | `L4` |
-| J6 | roll | `L5` |
+| joint | axis (home pose) | motor carried by | link that rides on it |
+|---|---|---|---|
+| J1 | vertical | `base` | `L1`, the column |
+| J2 | pitch | `L1` | `L2`, the upper arm |
+| J3 | pitch | `L2` | `L3`, a short bracket |
+| J4 | **roll along the forearm**, coincident with J3 | `L3` | `L4`, the forearm |
+| J5 | pitch | `L4` | `L5`, the offset wrist |
+| J6 | roll, offset 75 mm from J5 | `L5` | the gripper |
+
+Joint *directions* are not fixed by the geometry — set `joint_signs` in the
+publisher configuration to match how you mount each motor.
 
 The same topology is already implemented for the Annin AR4 in
 [`../ar4/gello-ar4.scad`](../ar4/gello-ar4.scad), which is where the DYNAMIXEL
@@ -68,6 +87,7 @@ mount geometry in this model comes from.
 ## 3D printed parts
 
 - [base.STL](base.STL) — identical to [../ur5/base.STL](../ur5/base.STL)
+- [ring.STL](ring.STL) — J1 support ring, see *Structure* below
 - [L1.STL](L1.STL)
 - [L2.STL](L2.STL)
 - [L3.STL](L3.STL)
@@ -78,13 +98,14 @@ Plus the shared gripper, which bolts to the J6 horn:
 [../gripper/handle.STL](../gripper/handle.STL) and
 [../gripper/trigger.STL](../gripper/trigger.STL).
 
-Total printed volume is about 205 cm³ (~250 g in PLA).
+Total printed volume is about 249 cm³ — roughly 310 g of PLA solid, or
+about 205 g at 40 % infill.
 
 ## Assembly notes
 
-- Build the chain from the base outwards: `base` → J1 motor → `L1` → J2 motor →
-  `L2` → J3 motor → `L3` → J4 motor → `L4` → J5 motor → `L5` → J6 motor →
-  gripper handle.
+- Build the chain from the base outwards: `base` → `ring` → J1 motor → `L1` →
+  J2 motor → `L2` → J3 motor → `L3` → J4 motor → `L4` → J5 motor → `L5` →
+  J6 motor → gripper handle.
 - Every joint uses the same interface: the motor bolts into the pocket of the
   part that carries it through four M2 screws on a 16 x 30 mm pattern, and the
   next part bolts to the horn through four M2 screws on a 6 mm radius. The 4 mm
@@ -92,20 +113,61 @@ Total printed volume is about 205 cm³ (~250 g in PLA).
   the print.
 - `L1` is a 114 mm tall column, considerably taller than the UR5 L1, because
   the CRX puts J2 245 mm above the mounting face. Print it standing with the
-  sole plate on the bed and use enough perimeters — it carries the whole arm.
-- The reused UR5 base plate keeps its support-ring bolt pattern (four holes on
-  a 36 mm radius). `L1` does not need a ring — its J1 interface is exactly the
-  UR5 L1 interface — but [../ar4/ur5_support_ring.stl](../ar4/ur5_support_ring.stl)
-  can be fitted if you want extra support under the taller column.
+  skirt on the bed and use enough perimeters — it carries the whole arm.
+- `L3` is deliberately tiny: it only has to reach from the J3 horn to the J4
+  motor seat, because those two axes are coincident. `L4` is the long link.
+- `L5` reaches 75 mm sideways to put the J6 roll axis where the real wrist
+  offset puts it. That offset gives the wrist a small gravity bias about J4,
+  about 72 N·mm or 14 % of the XL330 stall torque — the same bias the real
+  arm has, and well within what the motor holds.
+- Fit `ring.STL` **before** the J1 motor. It bolts down with four M2 screws
+  through the holes the UR5 base plate already has on a 36 mm radius; the
+  screws self-tap into the plate. Then mount the J1 motor inside it and bolt
+  `L1` onto the horn as usual. The skirt of `L1` must come to rest on the
+  ring's top land — if the arm rocks, shim under the ring; if `L1` will not
+  seat on the horn, sand the land down. Motor cables leave between the ring's
+  four legs.
 - Assign the motor IDs 1..6 from base to gripper with
   [DYNAMIXEL Wizard 2.0](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_wizard2/#id-inspection).
+
+## Structure
+
+The links are flat 8 x 29 mm plates. In operation that is far more than enough:
+the motors back-drive long before the plastic is loaded. Self weight puts about
+1.1 MPa of bending in `L2`, a safety factor of roughly 35 against printed PLA,
+and a side push at the handle back-drives J1 at 0.8 N. `L2` droops 0.3 mm under
+gravity.
+
+Two things are worth knowing.
+
+**The plates are directional.** Out of plane the section is 13x less stiff and
+3.6x weaker than in plane. A 68 N vertical load at the handle would yield `L2`,
+but only 19 N sideways. Neither is reachable through the joints — they matter
+for knocks and drops, not for teleoperation. Print `L2` and `L4` flat, so the
+layers stack across the 8 mm thickness and the bending stress stays in plane.
+Printing them upright roughly halves the strength.
+
+**J1 carries the whole arm.** The overturning moment of the entire arm,
+about 1.24 N·m, lands on the J1 interface, and no joint axis relieves it — J1
+rotates about the vertical, the moment is about the horizontal. On the horn
+alone that is 104 N of tension per M2 screw against roughly 350 N of thread
+pull-out in the 3.1 mm shoulder: a safety factor of only 3.4, the tightest in
+the design, and 1.35x worse than the UR5 GELLO because this arm is longer.
+
+`ring.STL` removes that. It bolts to the base plate and presents a flat thrust
+land, an annulus of 28..33 mm radius, at exactly the height of the J1 horn
+face, and the enlarged skirt of `L1` rests on it. The moment is then reacted at
+a mean radius of 30.5 mm instead of the 6 mm horn bolt circle, so the horn
+screws only transmit J1 torque — about 22 N of shear each, a safety factor near
+16. Peak contact pressure on the land is 0.08 MPa. The added friction is
+0.03 N·m at J1, which the operator feels as 0.05 N at the handle.
 
 ## Regenerating the STLs
 
 Open Fusion, run `Utilities > Add-Ins > Scripts and Add-Ins`, add
 `gello_crx10_12a_fusion.py`, and run it. It creates a new design and writes
-`L1.STL` .. `L5.STL` next to the script. `base.STL` is not generated — it is a
-copy of the UR5 base plate.
+`L1.STL` .. `L5.STL` and `ring.STL` next to the script. `base.STL` is not
+generated — it is a copy of the UR5 base plate.
 
 To change the scale, edit `ALPHA` and re-run. The script asserts that the
 chosen α still leaves room for the motors. Hardware-driven distances (plate
@@ -119,5 +181,5 @@ deliberately do not scale.
 The STLs are exported in assembly coordinates, the same convention as the UR5
 GELLO STLs: **Y up (the J1 axis), Z along the arm, X along the pitch axes**,
 origin on the J1 axis at the top face of the base plate, arm stretched
-horizontally along +Z. Slice them in whatever orientation prints best; nothing
-in the files assumes a print orientation.
+horizontally along +Z. Nothing in the files assumes a print orientation — see
+*Structure* above for the orientations that print strongest.
